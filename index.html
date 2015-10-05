@@ -9,7 +9,6 @@
 <body>
 <article>
 
-
 	
 <h1>HTML5 Banner Ads With CreateJS</h1>
 
@@ -81,7 +80,7 @@
 
 <h3>TweenJS</h3>
 
-<p>Simple but powerful animation engine with multi-step tweens, synched tweens, non-numeric property support, and motion paths.</p>
+<p>Simple but powerful animation engine with multi-step tweens, synced tweens, non-numeric property support, and motion paths.</p>
 
 <p>CreateJS has no external dependencies, imposes no specific architectural requirements on your code, and is designed to work seamlessly with almost every other JS library, including favourites like GSAP (aka TweenLite), Three.js, AngularJS, and jQuery.</p>
 
@@ -251,7 +250,7 @@ document.write("&lt;a href='url'&gt;&lt;img src='image.jpg' alt='text'&gt;&lt;/a
 
 <p>When you set a framerate, this doesn't guarantee that your content will play back at that speed. If the device becomes overburdened, frames may take longer to render, slowing the playback of your content. This can cause problems when your ad fails to reach the expected keyframe in the allotted time.</p>
 
-<p>EaselJS allows you to set a target <code>framerate</code> on MovieClip and Sprite instances, placing them in a time-synched mode. If the real-world framerate drops, the MovieClip will adjust its playback rate to accommodate it. For example, if you set a target framerate of 20 on a MovieClip, and the real-world framerate drops to 10fps, it will play 2 frames per second to remain synchronized.</p>
+<p>EaselJS allows you to set a target <code>framerate</code> on MovieClip and Sprite instances, placing them in a time-synced mode. If the real-world framerate drops, the MovieClip will adjust its playback rate to accommodate it. For example, if you set a target framerate of 20 on a MovieClip, and the real-world framerate drops to 10fps, it will play 2 frames per second to remain synchronized.</p>
 
 <pre>
 myMovieClip.framerate = 20;
@@ -331,7 +330,7 @@ var ad = new createjs.AdHelper(myStage);
 
 <h2>Method Chaining</h2>
 
-<p>Most methods can be chained for simpler setup. For example, the following code creates a new AdHelper instance and enables time synch, performance monitoring, and high dpi support using default settings.</p>
+<p>Most methods can be chained for simpler setup. For example, the following code creates a new AdHelper instance and enables time sync, performance monitoring, and high dpi support using default settings.</p>
 
 <pre>
 new createjs.AdHelper(myStage).timeSync().watchFPS().highDPI();
@@ -709,7 +708,7 @@ createjs.Ticker.on("tick", function() {
 });
 </pre>
 
-<p>The stage must have <code>update()</code> called each tick in order to propagate the <code>tick</code> event to child display objects and to redraw. By default, Flash Pro subscribes the stage as a listener to Ticker's <code>tick</code> event, which covers this requirement, but you may want to remove this and call your own tick handler in order to run logic before the update. It's very important to call <code>stage.update()</code> and pass the tick event object to it (this is needed for time synching in EaselJS).</p>
+<p>The stage must have <code>update()</code> called each tick in order to propagate the <code>tick</code> event to child display objects and to redraw. By default, Flash Pro subscribes the stage as a listener to Ticker's <code>tick</code> event, which covers this requirement, but you may want to remove this and call your own tick handler in order to run logic before the update. It's very important to call <code>stage.update()</code> and pass the tick event object to it (this is needed for time syncing in EaselJS).</p>
 
 <pre>
 createjs.Ticker.on("tick", handleTick);
@@ -794,7 +793,6 @@ window.location = "./deploy.html";
 <h3>October 5, 2015</h3>
 
 <p>Initial release.</p>
-
 
 
 
