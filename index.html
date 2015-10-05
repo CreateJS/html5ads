@@ -9,7 +9,7 @@
 <body>
 <article>
 
-	
+
 <h1>HTML5 Banner Ads With CreateJS</h1>
 
 <div id="toc"></div>
@@ -18,7 +18,7 @@
 
 <p>This is a living document. It will be updated as standards and best practices evolve. See <strong>Appendix: Document History</strong> for a list of changes. The source, along with supporting materials, examples, and helper classes is available at <a href="http://github.com/createjs/ads/">github.com/createjs/html5ads/</a>, and contributions are welcome.</p>
 
-<p>The contents of this document is copyrighted, and is licensed under the <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a>.</p>
+<p>The content of this document is copyrighted, and is licensed under the <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a>.</p>
 
 <h1>Introduction</h1>
 
@@ -58,11 +58,11 @@
 
 <p>The sole exception to the file-size policy is CDN hosted JavaScript libraries that are granted an exception by the publisher or ad server, because these common libraries are leveraged across multiple campaigns and can be cached by users' browsers. A number of ad networks are already supporting this exception for CreateJS (ex. CoFactor/Pointroll, AOL).</p>
 
-<p>CreateJS is on a shortlist of suitable libraries (widely used and distributed, professionally maintained, well documented, frequently updated, backwards compatible) that the IAB will publicly recommend through it's soon-to-be-updated and republished HTML5 Best Practices documentation, located at <a href="http://www.iab.net/html5">http://www.iab.net/html5</a>. This would ultimately allow ad creators to exclude the file size of the library from the overall 200kB file size calculation.</p>
+<p>CreateJS is on a shortlist of suitable libraries (widely used and distributed, professionally maintained, well documented, frequently updated, backwards compatible) that the IAB will publicly recommend through its soon-to-be-updated and republished HTML5 Best Practices documentation, located at <a href="http://www.iab.net/html5">http://www.iab.net/html5</a>. This would ultimately allow ad creators to exclude the file size of the library from the overall 200kB file size calculation.</p>
 
 <h1>CreateJS</h1>
 
-<p>Developed by widely-recognized interactive shop gskinner, inc to facilitate the creation of Flash-like experiences using open web standards (ex. HTML5), CreateJS is a suite of four libraries that accelerate the production of rich interactive experiences such as games, ads, data visualizations, and micro-sites.</p>
+<p>Developed by widely-recognized interactive shop gskinner to facilitate the creation of Flash-like experiences using open web standards (ex. HTML5), CreateJS is a suite of four libraries that accelerate the production of rich interactive experiences such as games, ads, data visualizations, and micro-sites.</p>
 
 <p>The four libraries in the suite can be used together or completely independently, and are focused on specific areas of functionality.</p>
 
@@ -82,7 +82,7 @@
 
 <p>Simple but powerful animation engine with multi-step tweens, synced tweens, non-numeric property support, and motion paths.</p>
 
-<p>CreateJS has no external dependencies, imposes no specific architectural requirements on your code, and is designed to work seamlessly with almost every other JS library, including favourites like GSAP (aka TweenLite), Three.js, AngularJS, and jQuery.</p>
+<p>CreateJS has no external dependencies, imposes no specific architectural requirements on your code, and is designed to work seamlessly with almost every other JS library, including favorites like GSAP (aka TweenLite), Three.js, AngularJS, and jQuery.</p>
 
 <p>It is free and open source, licensed under the permissive MIT license. This means it can be easily incorporated into commercial projects, and the project welcomes contributions and feedback from the community.</p>
 
@@ -206,7 +206,7 @@ document.write("&lt;a href='url'&gt;&lt;img src='image.jpg' alt='text'&gt;&lt;/a
 
 <p>When used, audio can also contribute significantly to file size. As with images, you should consider compressing your audio using a dedicated tool that will provide better results than Flash Pro. This is particularly true because as of the time of writing, Flash Pro does not compress audio below 128kbps.</p>
 
-<p>When compressing play with settings and get a feel for what provides adequate quality for your needs. For example, you might be able to use 48kbps mono for voice or some sound effects, but may not want to drop below 128 kbps for music.</p>
+<p>When compressing play, with settings and get a feel for what provides adequate quality for your needs. For example, you might be able to use 48kbps mono for voice or some sound effects, but may not want to drop below 128 kbps for music.</p>
 
 <h3>Code</h3>
 
@@ -479,7 +479,7 @@ this.x += 100;
 
 <p>Drop shadows and glows (which are essentially shadows with no offset) are rendered in EaselJS using canvas's built in shadow features. They render reasonably fast on desktop, but can cause performance issues on mobile, and can be applied to animated content.</p>
 
-<p>At this time, shadow effects can not be animated on the timeline, though this is primarily an authoring limitation that may be removed in the future.</p>
+<p>At this time, shadow effects cannot be animated on the timeline, though this is primarily an authoring limitation that may be removed in the future.</p>
 
 <h3>Filter Effects</h3>
 
@@ -491,7 +491,7 @@ this.x += 100;
 
 <p>Another option is to create a sprite sheet animation of the filter effect and use that in your ad instead.</p>
 
-<h2>Logging Functions for Ad Testing				</h2>
+<h2>Logging				</h2>
 
 <p>It's likely that you've previously used ActionScript's <code>trace()</code>statement to debug your code. In JavaScript, you can use <code>console.log()</code> instead:</p>
 
@@ -567,7 +567,7 @@ root.doSomething(); // can use the global variable without a scope
 
 <h2>Events					</h2>
 
-<p>The event model in CreateJS is similar to AS3's but has a few variations you should be aware of. Firstly, there are no <code>on</code><code>e</code><code>vent</code> handlers. For example you can't use:</p>
+<p>The event model in CreateJS is similar to AS3's but has a few variations you should be aware of. Firstly, there are no <code>onevent</code> handlers. For example you can't use:</p>
 
 <pre>
 myBtn.onClick = function(){...};
@@ -633,7 +633,7 @@ function handleClick(evt, data) {
 
 <p>This also enables support for the <code>cursor</code> property, and is included automatically in the HTML generated by Flash Pro if a button is included.</p>
 
-<p>Similarly, untargeted mouse events such as <code>mousemove</code> and <code>mouseup</code> are not dispatched to every display object on stage to reduce unnecessary overhead. Instead, you can subscribe to stage level events <code>stagemousemove</code> and <code>stagemouseup</code>. The following shows a simple mouse follow behaviour:
+<p>Similarly, untargeted mouse events such as <code>mousemove</code> and <code>mouseup</code> are not dispatched to every display object on stage to reduce unnecessary overhead. Instead, you can subscribe to stage level events <code>stagemousemove</code> and <code>stagemouseup</code>. The following shows a simple mouse follow behavior:
 </p>
 
 <pre>
