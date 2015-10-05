@@ -3,7 +3,7 @@ AdHelper Class and Sample CreateJS Banner Ad
 
 Interactive HTML5 banner ad demonstrating use of the AdHelper class.
 
-![ScreenShot](https://raw.github.com/CreateJS/sandbox/master/AdHelper/README_1.jpg)
+![ScreenShot](https://raw.githubusercontent.com/CreateJS/html5ads/master/AdHelper/README_1.jpg)
 
 The AdHelper class is only 2kb over the wire, and provides a number of capabilities for HTML5 banner ads built with
 CreateJS:
