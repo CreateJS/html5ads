@@ -1,0 +1,141 @@
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,600);
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:600);
+
+body {
+	font-family: 'Titillium Web', Arial, sans-serif;
+	font-size: 14pt;
+	line-height: 1.5em;
+	background: #f6f6f6;
+	margin:0;
+}
+
+img {
+	width: 100%;
+}
+
+article {
+	padding: 4.5em;
+	padding-top: 1em;
+	max-width: 42em;
+	background: #FFF;
+	color: #222;
+	margin: auto;
+	box-shadow: 1px 1px 8px rgba(0,0,0,0.1);
+}
+
+strong {
+	color: #111;
+}
+
+a {
+	text-decoration: none;
+	color: #25A;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+li {
+	margin-bottom: 0.66em;
+}
+
+h1, h2, h3 {
+	font-family: 'Titillium Web', Arial, sans-serif;
+	font-weight: bold;
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
+	color: #111;
+}
+
+h1 {
+	font-weight: normal;
+	font-size: 2em;
+	background: #111;
+	color: white;
+	padding: 0.33em;
+	margin-left: -0.33em;
+	margin-right: -0.33em;
+	line-height: 1.25em;
+}
+
+h2 {
+	font-size: 1.5em;
+	border-bottom: solid #111 2.5px;
+	padding-bottom: 0.15em;
+}
+
+h3 {
+	font-size: 1.2em;
+}
+
+code, pre {
+	font-family: 'Source Code Pro', monospace;
+	background: #f6f6f6;
+	border: solid #e3e3e3 1px;
+	padding-left: 0.33em;
+	padding-right:0.33em;
+	font-size: 0.85em;
+	color: #000;
+}
+
+pre {
+	padding: 1em;
+	overflow: auto;
+	line-height: 1.3em;
+	tab-size: 4;
+}
+
+hr {
+	border: none;
+	border-bottom: dotted #222 4px;
+	display: none;
+}
+
+.toc {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	margin-top: 1.5em;
+	line-height: 1.4em;
+}
+
+.toc li {
+	margin-bottom: 0;
+}
+
+.toc1 {
+	font-weight: bold;
+	margin-top: 0.33em;
+}
+
+.toc2 {
+	margin-left: 2em;
+}
+
+.toc3 {
+	margin-left: 4em;
+}
+
+@media print {
+	body, article {
+		font-size: 11pt;
+		background: #fff;
+	}
+	
+	h1 {
+		background: #fff;
+		color: #000;
+		font-weight: bold;
+		border-bottom: solid black 3px;
+	}
+	
+	h2 {
+		border: 0;
+	}
+	
+	code, pre {
+		background: #f3f3f3;
+		border: solid #e9e9e9 1px;
+	}
+}
