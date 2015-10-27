@@ -9,7 +9,7 @@
 <body>
 <article>
 
-
+	
 <h1>HTML5 Banner Ads With CreateJS</h1>
 
 <div id="toc"></div>
@@ -357,14 +357,24 @@ ad.sleep(delay);
 
 <p>This feature is enabled automatically when using AdHelper.</p>
 
-<h2>Alternative / Fallback Content</h2>
+<h2>CreateJS Support</h2>
 
-<p>Allows you to specify alternative content to display if the browser is not supported by CreateJS. This content can optionally also be displayed if performance monitoring determines the ad is running too slowly. There are three methods, that give different levels of control.</p>
+<p>Test to see if CreateJS is supported on the current browser. For example, this can be used to display alternative content.</p>
 
 <pre>
-ad.setAltImage(imgSrc, href, alt, target);
-ad.setAltHTML(html);
-ad.setAlt(element);
+if (!createjs.AdHelper.isSupported()) {
+	createjs.AdHelper.showAltImage(myCanvas, "myImage.jpg", "url");
+}
+</pre>
+
+<h2>Alternative Content</h2>
+
+<p>Static methods to replace your ad canvas with alternative content. This can be useful when CreateJS is not supported, or if performance monitoring determines the ad is running too slowly. There are three methods, that give different levels of control.</p>
+
+<pre>
+createjs.AdHelper.showAltImage(canvas, imgSrc, href, alt, target);
+createjs.AdHelper.showAltHTML(canvas, html);
+createjs.AdHelper.showAlt(canvas, element);
 </pre>
 
 <h2>Time Sync</h2>
@@ -380,15 +390,15 @@ ad.timeSync(framerate);
 <p>Enable full resolution rendering on high DPI screens. Can also be used to disable full resolution rendering on high DPI screens to improve performance. Also allows for authoring the ad at a different scale.</p>
 
 <pre>
-ad.highDPI(scale);
+ad.highDPI(enabled, nominalScale);
 </pre>
 
 <h2>Performance Monitoring</h2>
 
-<p>Monitors playback framerate, and uses a simple heuristic to determine when the ad fails to satisfy configurable performance minimums. Dispatches a <code>slow</code> event and can optionally sleep the ad and display the alternative content. Works with visibility features to avoid failing while in a background tab due to throttling.</p>
+<p>Monitors playback framerate, and uses a simple heuristic to determine when the ad fails to satisfy configurable performance minimums. Dispatches a <code>slow</code> event and sleeps the ad by default. Works with visibility features to avoid failing while in a background tab due to throttling.</p>
 
 <pre>
-ad.watchFPS(showAlt, minFPS, tolerance);
+ad.watchFPS(minFPS, tolerance);
 </pre>
 
 <p><hr></p>
@@ -793,6 +803,12 @@ window.location = "./deploy.html";
 <h3>October 5, 2015</h3>
 
 <p>Initial release.</p>
+
+<h3>October 26, 2015</h3>
+
+<p>Minor edits, and changes to reflect AdHelper updates.</p>
+
+
 
 
 

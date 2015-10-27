@@ -7,10 +7,11 @@ Interactive HTML5 banner ad demonstrating use of the AdHelper class.
 
 The AdHelper class is only 2kb over the wire, and provides a number of capabilities for HTML5 banner ads built with
 CreateJS:
+- detecting if CreateJS is supported on the browser
+- displaying alternative content
 - pausing & muting while in background tabs
 - setting sleep schedules (ex. pause after 15s)
 - waking on interaction for configurable time
-- displaying alternative content on old browsers
 - ensure full resolution graphics on high DPI screens
 - performance monitoring
 - time syncing content
