@@ -39,10 +39,11 @@ this.createjs = this.createjs || {};
 	 * to its own iframe. It can cause problems if there are multiple CreateJS experiences in the same document.</strong>
 	 * 
 	 * Class that provides a number of helpful capabilities for online advertisements such as:<ul>
+	 * <li> detect if CreateJS is supported in the current browser
+	 * <li> display alternate content
 	 * <li> sleep/pause and mute the ad while it's in a background tab
 	 * <li> sleep/pause after a delay & wake on interaction
-	 * <li> display alternate content if the browser isn't supported
-	 * <li> watch framerate and display alternate content if slow
+	 * <li> watch framerate and sleep the ad if it is running slowly
 	 * <li> time-sync playback to maintain duration even when framerate is slow
 	 * <li> ensure full resolution graphics on high DPI screens
 	 * </ul>
@@ -57,7 +58,7 @@ this.createjs = this.createjs || {};
 	 * Most methods can be chained to allow single line initialization. For example, this would
 	 * create an ad helper that sleeps after 15s, and has alt content:
 	 * 
-	 * 	var ad = new AdHelper(myStage).setSleep(15).setAlt("http://createjs.com/","altImage.jpg");
+	 * 	var ad = new AdHelper(myStage).setSleep(15).highDPI();
 	 * 	ad.on("sleep", handleSleep, this);
 	 * 
 	 * @class AdHelper
@@ -143,21 +144,98 @@ this.createjs = this.createjs || {};
 		this._sleepUseTicks = false; // must be set in props if using startDelay
 		this._mouseInDoc = false; // iframes can break stage.mouseInBounds
 		
-		this._altHTML = "error";
-		this._altEl = null;
-		
 		this._perfDelay = 0; // wait a few ticks before measuring performance
 		this._perfCount = 0;
 		this._perfThreshold = 0;
 		this._perfFPS = 0;
-		this._perfUseAlt = false;
 		
 		this._width = stage.canvas.width; // for use with highDPI in case of multiple calls.
 		this._height = stage.canvas.height;
 		
 		createjs.Ticker.on("tick", this);
 	}
-	var p = createjs.extend(AdHelper, createjs.EventDispatcher);
+	var p = AdHelper.prototype;
+	if (createjs.EventDispatcher) { p = AdHelper.prototype = new createjs.EventDispatcher(); }
+	
+	
+// public static methods:
+	/**
+	 * Returns true if CreateJS is supported on this browser. For example, this can be used in conjunction with the
+	 * `showAlt` methods to display alternate content when the CreateJS banner is not supported. You should run this
+	 * check before initializing the ad. For example:
+	 * 
+	 * 	function init() {
+	 * 		if (!createjs.AdHelper.isSupported()) {
+	 * 			// not supported, show alt content, and skip everything else.
+	 * 			createjs.AdHelper.showAltImage("myImage.jpg", "url");
+	 * 			return;
+	 * 		}
+	 * 		// supported, so continue with normal init...
+	 * 	}
+	 * 
+	 * @method isSupported
+	 * @static
+	 * @return {Boolean} True if CreateJS is supported on this browser.
+	 */
+	AdHelper.isSupported = function() {
+		return !!window.CanvasRenderingContext2D;
+	};
+	
+	/**
+	 * Helper method that generates HTML and passes it to `showAltHTML` to replace the specified canvas.
+	 * You can set a link href/url, an image, and alt text. If you require more control over the content
+	 * use `setAltHTML` directly.
+	 * @method setAltImage
+	 * @static
+	 * @param {String|HTMLCanvasElement} canvas The canvas element to replace, or its id.
+	 * @param {String} src The URL for the image to display.
+	 * @param {String} [href] The URL to link.
+	 * @param {String} [alt=""] Text to use as alt text for the image.
+	 * @param {String} [target="_blank"] The link target to use (ex. _blank, _parent). Default is _blank.
+	 * @return {HTMLElement} The div that was created by showAltHTML and swapped with the canvas.
+	 */
+	AdHelper.showAltImage = function(canvas, src, href, alt, target) {
+		return AdHelper.showAltHTML(canvas,
+			(href?"<a target='"+(target||"_blank")+"' href='"+href+"'>":"")+ 
+			"<img src='"+src+"' border='0' alt='"+(alt||"")+"'>"+
+			(href?"</a>":""));
+	};
+	
+	/**
+	 * Replaces the specified canvas with a new div containing the specified HTML content. The created div is assigned
+	 * an id of "adAlt" for referencing in code or styling with CSS.
+	 * @method showAltHTML
+	 * @static
+	 * @param {String|HTMLCanvasElement} canvas The canvas element to replace, or its id.
+	 * @param {String} html The HTML content to display.
+	 * @return {HTMLElement} The div that was created and swapped with the canvas.
+	 */
+	AdHelper.showAltHTML = function(canvas, html) {
+		var div = document.createElement("div");
+		div.innerHTML = html || "";
+		div.id = "adAlt";
+		return AdHelper.showAlt(canvas, div);
+	};
+	
+	/**
+	 * Swaps the specified canvas with an HTML element as alternative content. The element will have its CSS `display`
+	 * value set to `block`. This allows you to set the element's CSS `display` value to `none` by default to
+	 * prevent it from displaying when the page loads.
+	 * 
+	 * Note that any images or scripts you have in your element will be loaded and run as usual, so using showAltHTML
+	 * may be preferable in some situations.
+	 * @method showAlt
+	 * @static
+	 * @param {String|HTMLCanvasElement} canvas The canvas element to replace, or its id.
+	 * @param {HTMLElement} element The HTML element to display.
+	 * @return {HTMLElement} The element that was passed in.
+	 */
+	AdHelper.showAlt = function(canvas, element) {
+		if (typeof canvas == "string") { canvas = document.getElementById(canvas); }
+		element.style.display = "block";
+		canvas.parentNode.replaceChild(element, canvas);
+		return element;
+	};
 	
 	
 // events:
@@ -177,95 +255,8 @@ this.createjs = this.createjs || {};
 	 * Dispatched if performance monitoring (via watchFPS) detects that the ad is running slowly.
 	 * @event slow
 	 */
-	 
-	/**
-	 * Dispatched when the alt content is shown. Useful for loading images, triggering animations, etc. in the alt content.
-	 * @event alt
-	 */
 
 // public methods
-	/**
-	 * Specifies alternative content to display if the browser is not supported. You can set a link href/url, an image,
-	 * and text. If an image is specified, the text is used as its alt text. If you require more control over the content
-	 * use `setAltHTML` instead.
-	 * 
-	 * When the alt content is displayed, the banner is put to sleep, and the stage's target canvas is replaced with a
-	 * div element containing the alt content and with an id of "adAlt", which you can use for styling or JS.
-	 * 
-	 * The image is not loaded until the alt content is displayed.
-	 * @method setAltImage
-	 * @param {String} src The URL for the image to display.
-	 * @param {String} [href] The URL to link.
-	 * @param {String} [alt=""] Text to use as alt text for the image.
-	 * @param {String} [target="_blank"] The link target to use (ex. _blank, _parent). Default is _blank.
-	 * @return {AdHelper} The AdHelper instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 */
-	p.setAltImage = function(src, href, alt, target) {
-		return this.setAltHTML(
-			(href?"<a target='"+(target||"_blank")+"' href='"+href+"'>":"")+ 
-			"<img src='"+src+"' border='0' alt='"+(alt||"")+"'>"+
-			(href?"</a>":""));
-	};
-	
-	/**
-	 * Specifies alternative HTML content to display if the browser is not supported.
-	 * 
-	 * When the alt content is displayed, the banner is put to sleep, and the stage's target canvas is replaced with a
-	 * div element containing the alt content and with an id of "adAlt", which you can use for styling or JS.
-	 * 
-	 * The HTML is not parsed until the alt content is displayed, which prevents images from loading, and scripts from
-	 * executing.
-	 * @method setAltHTML
-	 * @param {String} html The HTML content to display.
-	 * @return {AdHelper} The AdHelper instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 */
-	p.setAltHTML = function(html) {
-		this._altHTML = html;
-		if (!window.CanvasRenderingContext2D) { this.showAlt(); }
-		return this;
-	};
-	
-	/**
-	 * Specifies an HTML element to display as alternative content if the browser is not supported. The element will be
-	 * removed from its parent node immediately, but it is still recommended to set its CSS `display` value to `none` to
-	 * prevent it from displaying briefly when the page loads.
-	 * 
-	 * When the alt content is displayed, the banner is put to sleep, and the stage's target canvas is replaced with the
-	 * element. The element will have its CSS `display` value set to `block`. You can override this via the `alt` event.
-	 * 
-	 * Note that any images or scripts you have in your element will be loaded and run as usual, so using setAltHTML
-	 * may be preferable in some situations.
-	 * @method setAlt
-	 * @param {HTMLElement} element The HTML element to display.
-	 * @return {AdHelper} The AdHelper instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 */
-	p.setAlt = function(element) { // TODO:  accept a HTMLElement
-		this._altEl = element;
-		if (element.parentNode) { element.parentNode.removeChild(element); }
-		return this;
-	};
-	
-	/**
-	 * Shows the alternate content that was specified with `setAlt`, `setAltHTML`, or `setAltImage`.
-	 * @method showAlt
-	 */
-	p.showAlt = function() {
-		if (!this._altEl) {
-			var div = this._altEl = document.createElement("div");
-			div.innerHTML = this._altHTML || "";
-			div.id = "adAlt";
-		}
-		var canvas = stage.canvas;
-		this._altEl.style.display = "block";
-		canvas.parentNode.replaceChild(this._altEl, canvas);
-		this.sleep();
-		this.sleepEnabled = false;
-		this.dispatchEvent("alt");
-	};
-	
 	/**
 	 * Causes all MovieClip instances to run in time synched mode, so their duration remains consistent regardless of
 	 * real framerate (ex. if framerate drops due to performance issues).
@@ -307,17 +298,37 @@ this.createjs = this.createjs || {};
 	
 	/**
 	 * Watches the real framerate for the ad, and applies a simple heuristic to determine when the ad has been
-	 * running too slowly for too long. When this happens a `slow` event is dispatched, and if `useAlt` is true, then
-	 * `showAlt()` is called.
+	 * running too slowly for too long. When this happens a `slow` event is dispatched, which you can use to modify
+	 * your content, for example by displaying alternative content:
+	 * 
+	 * 	myAdHelper.watchFPS().on("slow", function(evt) {
+	 * 		createjs.AdHelper.showAltImage(myStage.canvas, "myImage.jpg", "myURL");
+	 * 	});
+	 * 
+	 * By default, when the slow event fires, AdHelper will call `sleep()` and set `sleepEnabled=true`. You can prevent
+	 * this behaviour by calling `preventDefault()` on the slow event object. You can also restart the framerate watcher
+	 * after making adjustments:
+	 * 
+	 * 	myAdHelper.on("slow", function(evt) {
+	 * 		if (particleCount > 0) {
+	 * 			// if we can speed things up by removing particles, try that first.
+	 * 			evt.preventDefault(); // the ad will not be put to sleep.
+	 * 			particleCount -= 100; // or whatever will make it run faster.
+	 * 			this.watchFPS(); // restart the framerate watcher
+	 * 		} else {
+	 * 			// no more particles to remove, so let the default sleep happen
+	 * 			// and swap in some alt content:
+	 * 			createjs.AdHelper.showAltImage(myStage.canvas, "myImage.jpg", "myURL");
+	 * 		}
+	 * 	});
+	 * 
 	 * @method watchFPS
-	 * @param {Boolean} [showAlt] If true, then when the ad is detected to be slow, `showAlt` is called.
 	 * @param {Number} [minFPS] The minimum framerate considered acceptable. Calculated automatically if null.
-	 * @param {Number} [tolerance=1] The tolerance of the system. A higher value (ex. 2) allows more slow frames before acting than a lower number (ex. 0.5). Default is 1.
+	 * @param {Number} [tolerance=1] The tolerance of the system. A higher value (ex. 2) allows more slow frames before acting than a lower number (ex. 0.5).
 	 * @return {AdHelper} The AdHelper instance the method is called on (useful for chaining calls.)
 	 * @chainable
 	 */
-	p.watchFPS = function(showAlt, minFPS, tolerance) {
-		this._perfUseAlt = showAlt;
+	p.watchFPS = function(minFPS, tolerance) {
 		this._perfFPS = minFPS || (this._getTickerFPS()*0.9-1|0);
 		this._perfThreshold = tolerance || 1;
 		this._perfCount = 0;
@@ -404,6 +415,7 @@ this.createjs = this.createjs || {};
 	 * @param {Number} [delay=0] The delay before sleeping, or 0 to sleep immediately.
 	 */
 	p.sleep = function(delay) {
+		// TODO: switch to seconds.
 		if (delay) { this._sleepT = this._getTime()+(delay||0); return; }
 		this._sleepy = false;
 		this._sleepT = 0;
@@ -417,6 +429,7 @@ this.createjs = this.createjs || {};
 	 * @param {Number} [time=null] The amount of time to wake for, or null to wake permanently.
 	 */
 	p.wake = function(time) {
+		// TODO: switch to seconds.
 		this._sleepy = false;
 		if (time != null) { this._sleepT = Math.max(this._sleepT, this._getTime()+(time||0)); }
 		else { this._sleepT = 0; }
@@ -456,7 +469,14 @@ this.createjs = this.createjs || {};
 		if (this.awake) { return; }
 		createjs.Ticker.paused = false;
 		if (this.tickListener) { createjs.Ticker.addEventListener("tick", this.tickListener); }
-		window.TweenLite && TweenLite.ticker && TweenLite.ticker.wake();
+		
+		if (window.TweenLite) {
+			var ticker = TweenLite.ticker, originalFrame = ticker.frame; //record the original frame temporarily so we can revert
+			ticker.frame = 1; //hack to make legacy versions of GSAP apply lag smoothing upon wake
+			ticker.wake(true);
+			ticker.frame = originalFrame;
+		}
+		
 		this.dispatchEvent("wake");
 		this.awake = true;
 	};
@@ -482,8 +502,11 @@ this.createjs = this.createjs || {};
 			var val = 1-Math.max(0, Math.min(1, fps / this._perfFPS));
 			this._perfCount = Math.max(0, this._perfCount + (val === 0 ? -0.2 : val*val*0.5+0.1));
 			if (this._perfCount > this._perfThreshold) {
-				if (this.dispatchEvent("slow") && this._perfUseAlt) { this.showAlt(); }
 				this._perfFPS = 0;
+				if (this.dispatchEvent(new createjs.Event("slow", false, true))) {
+					this.sleep();
+					this.sleepEnabled = false;
+				}
 			}
 		}
 		
@@ -504,5 +527,5 @@ this.createjs = this.createjs || {};
 		return ctx.backingStorePixelRatio || ctx.webkitBackingStorePixelRatio || ctx.mozBackingStorePixelRatio || ctx.msBackingStorePixelRatio || ctx.oBackingStorePixelRatio || 1;
 	};
 
-	createjs.AdHelper = createjs.promote(AdHelper, "EventDispatcher");
+	createjs.AdHelper = AdHelper;
 })();

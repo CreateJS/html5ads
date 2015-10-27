@@ -16,6 +16,12 @@ var canvas, stage, exportRoot;
 
 function init() {
 	canvas = document.getElementById("canvas");
+	
+	// check for CreateJS support, and show alternate content if necessary
+	if (!createjs.AdHelper.isSupported()) {
+		createjs.AdHelper.showAltImage(canvas, "README_1.jpg", "http://createjs.com", "PlasmeX NRG!");
+		return; // don't bother continuing with anything else.
+	}
 
 	var loader = new createjs.LoadQueue(false);
 	loader.installPlugin(createjs.Sound);
@@ -34,8 +40,6 @@ function handleComplete(evt) {
 	createjs.Ticker.setFPS(lib.properties.fps);
 	createjs.Ticker.addEventListener("tick", stage);
 	
-	// ===== CHANGES START HERE ====
-	// there are also some minor changes to the included scripts at the top.
 	
 	// enable touch for mobile devices:
 	createjs.Touch.enable(stage);
@@ -44,28 +48,22 @@ function handleComplete(evt) {
 	// it's important to do this after the FPS is set if you're using timeSynch!
 	var ad = new createjs.AdHelper(stage)
 		// sleep 15s after start, 4s after a click, 1s after the mouse leaves:
-		.setSleep(15,4,1)
-		// content to show if a fallback is needed:
-		.setAltImage("README_1.jpg", "http://createjs.com", "PlasmeX NRG!")
+		.setSleep(15, 4, 1)
 		// force MCs to be time-synched (take roughly the same time regardless of real framerate):
 		.timeSync()
 		// render at full resolution on high DPI devices:
 		.highDPI()
 		// if framerate drops for too long, switch to alt:
-		.watchFPS(true);
+		.watchFPS();
 	
 	// trace out AdHelper events for demo:
 	ad.on("sleep", out);
 	ad.on("wake", out);
 	ad.on("slow", out);
-	ad.on("alt", out);
 	
 	// to test watchFPS, lower the FPS after creating the AdHelper.
 	// to test timeSynch, comment out watchFPS above, and set fps to 5.
-	//createjs.Ticker.setFPS(5);
-	
-	// to test setAlt, call showAlt at any time:
-	//ad.showAlt();
+	// createjs.Ticker.setFPS(5);
 }
 
 function playSound(id, loop) {

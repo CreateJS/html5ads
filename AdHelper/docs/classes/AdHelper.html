@@ -94,7 +94,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l37"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:37</code></a>
+            Defined in: <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l37"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:37</code></a>
         </div>
     
 
@@ -109,11 +109,12 @@
     <p><strong>NOTE: This class is specifically designed to work in an advertising environment, where the ad is isolated
 to its own iframe. It can cause problems if there are multiple CreateJS experiences in the same document.</strong></p>
 <p>Class that provides a number of helpful capabilities for online advertisements such as:<ul></p>
+<p><li> detect if CreateJS is supported in the current browser</p>
+<p><li> display alternate content</p>
 <p><li> sleep/pause and mute the ad while it&#39;s in a background tab</p>
 <p><li> sleep/pause after a delay &amp; wake on interaction</p>
-<p><li> display alternate content if the browser isn&#39;t supported</p>
-<p><li> watch framerate and display alternate content if slow</p>
-<p><li> time-synch playback to maintain duration even when framerate is slow</p>
+<p><li> watch framerate and sleep the ad if it is running slowly</p>
+<p><li> time-sync playback to maintain duration even when framerate is slow</p>
 <p><li> ensure full resolution graphics on high DPI screens
 </ul>
 These features work together. For example, sleep time will be deferred and performance
@@ -124,7 +125,7 @@ paused, which can cause audio to become desynched. Use the &quot;sleep&quot; and
 if this is a problem.</p>
 <p>Most methods can be chained to allow single line initialization. For example, this would
 create an ad helper that sleeps after 15s, and has alt content:</p>
-<pre class="code prettyprint"><code>var ad = new AdHelper(myStage).setSleep(15).setAlt(&quot;http://createjs.com/&quot;,&quot;altImage.jpg&quot;);
+<pre class="code prettyprint"><code>var ad = new AdHelper(myStage).setSleep(15).highDPI();
 ad.on(&quot;sleep&quot;, handleSleep, this);</code></pre>
 
 </div>
@@ -165,15 +166,10 @@ ad.on(&quot;sleep&quot;, handleSleep, this);</code></pre>
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_setAlt">setAlt</a>
+                                <a href="#method_isSupported">isSupported</a>
 
                                 
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_setAltHTML">setAltHTML</a>
-
+                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
@@ -181,6 +177,8 @@ ad.on(&quot;sleep&quot;, handleSleep, this);</code></pre>
                             <li class="index-item method">
                                 <a href="#method_setAltImage">setAltImage</a>
 
+                                
+                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
@@ -195,6 +193,17 @@ ad.on(&quot;sleep&quot;, handleSleep, this);</code></pre>
                             <li class="index-item method">
                                 <a href="#method_showAlt">showAlt</a>
 
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_showAltHTML">showAltHTML</a>
+
+                                
+                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
@@ -285,13 +294,6 @@ ad.on(&quot;sleep&quot;, handleSleep, this);</code></pre>
                     <ul class="index-list events extends">
                         
                             <li class="index-item event">
-                                <a href="#event_alt">alt</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item event">
                                 <a href="#event_sleep">sleep</a>
 
                                 
@@ -376,7 +378,7 @@ ad.on(&quot;sleep&quot;, handleSleep, this);</code></pre>
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l329"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:329</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l340"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:340</code></a>
         
         </p>
 
@@ -465,26 +467,16 @@ necessary.</p>
 </div>
 
                 
-                    <div id="method_setAlt" class="method item">
-    <h3 class="name"><code>setAlt</code></h3>
+                    <div id="method_isSupported" class="method item">
+    <h3 class="name"><code>isSupported</code></h3>
 
     
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>element</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
+        <span class="paren">()</span>
     
 
     
         <span class="returns-inline">
-            <span class="type"><a href="../classes/AdHelper.html" class="crosslink">AdHelper</a></span>
+            <span class="type">Boolean</span>
         </span>
     
 
@@ -495,9 +487,9 @@ necessary.</p>
     
 
     
-
+        <span class="flag static">static</span>
     
-        <span class="flag chainable">chainable</span>
+
     
 
     
@@ -513,7 +505,7 @@ necessary.</p>
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l230"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:230</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l162"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:162</code></a>
         
         </p>
 
@@ -524,40 +516,20 @@ necessary.</p>
     </div>
 
     <div class="description">
-        <p>Specifies an HTML element to display as alternative content if the browser is not supported. The element will be
-removed from its parent node immediately, but it is still recommended to set its CSS <code>display</code> value to <code>none</code> to
-prevent it from displaying briefly when the page loads.</p>
-<p>When the alt content is displayed, the banner is put to sleep, and the stage&#39;s target canvas is replaced with the
-element. The element will have its CSS <code>display</code> value set to <code>block</code>. You can override this via the <code>alt</code> event.</p>
-<p>Note that any images or scripts you have in your element will be loaded and run as usual, so using setAltHTML
-may be preferable in some situations.</p>
+        <p>Returns true if CreateJS is supported on this browser. For example, this can be used in conjunction with the
+<code>showAlt</code> methods to display alternate content when the CreateJS banner is not supported. You should run this
+check before initializing the ad. For example:</p>
+<pre class="code prettyprint"><code>function init() {
+    if (!createjs.AdHelper.isSupported()) {
+        // not supported, show alt content, and skip everything else.
+        createjs.AdHelper.showAltImage(&quot;myImage.jpg&quot;, &quot;url&quot;);
+        return;
+    }
+    // supported, so continue with normal init...
+}</code></pre>
 
     </div>
 
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">element</code>
-                        <span class="type">HTMLElement</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The HTML element to display.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -567,122 +539,9 @@ may be preferable in some situations.</p>
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="../classes/AdHelper.html" class="crosslink">AdHelper</a></span>:
+                        <span class="type">Boolean</span>:
                     
-                    <p>The AdHelper instance the method is called on (useful for chaining calls.)</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_setAltHTML" class="method item">
-    <h3 class="name"><code>setAltHTML</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>html</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="../classes/AdHelper.html" class="crosslink">AdHelper</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag chainable">chainable</span>
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l211"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:211</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Specifies alternative HTML content to display if the browser is not supported.</p>
-<p>When the alt content is displayed, the banner is put to sleep, and the stage&#39;s target canvas is replaced with a
-div element containing the alt content and with an id of &quot;adAlt&quot;, which you can use for styling or JS.</p>
-<p>The HTML is not parsed until the alt content is displayed, which prevents images from loading, and scripts from
-executing.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">html</code>
-                        <span class="type">String</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The HTML content to display.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="../classes/AdHelper.html" class="crosslink">AdHelper</a></span>:
-                    
-                    <p>The AdHelper instance the method is called on (useful for chaining calls.)</p>
+                    <p>True if CreateJS is supported on this browser.</p>
 
                 
             </div>
@@ -699,6 +558,12 @@ executing.</p>
     
         <div class="args">
             <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>canvas</code>
+                    
+                </li>
             
                 <li class="arg">
                     
@@ -730,7 +595,7 @@ executing.</p>
 
     
         <span class="returns-inline">
-            <span class="type"><a href="../classes/AdHelper.html" class="crosslink">AdHelper</a></span>
+            <span class="type">HTMLElement</span>
         </span>
     
 
@@ -741,9 +606,9 @@ executing.</p>
     
 
     
-
+        <span class="flag static">static</span>
     
-        <span class="flag chainable">chainable</span>
+
     
 
     
@@ -759,7 +624,7 @@ executing.</p>
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l187"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:187</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l184"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:184</code></a>
         
         </p>
 
@@ -770,12 +635,9 @@ executing.</p>
     </div>
 
     <div class="description">
-        <p>Specifies alternative content to display if the browser is not supported. You can set a link href/url, an image,
-and text. If an image is specified, the text is used as its alt text. If you require more control over the content
-use <code>setAltHTML</code> instead.</p>
-<p>When the alt content is displayed, the banner is put to sleep, and the stage&#39;s target canvas is replaced with a
-div element containing the alt content and with an id of &quot;adAlt&quot;, which you can use for styling or JS.</p>
-<p>The image is not loaded until the alt content is displayed.</p>
+        <p>Helper method that generates HTML and passes it to <code>showAltHTML</code> to replace the specified canvas.
+You can set a link href/url, an image, and alt text. If you require more control over the content
+use <code>setAltHTML</code> directly.</p>
 
     </div>
 
@@ -784,6 +646,22 @@ div element containing the alt content and with an id of &quot;adAlt&quot;, whic
             <h4>Parameters:</h4>
 
             <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">canvas</code>
+                        <span class="type">String | HTMLCanvasElement</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The canvas element to replace, or its id.</p>
+
+                    </div>
+
+                    
+                </li>
             
                 <li class="param">
                     
@@ -863,9 +741,9 @@ div element containing the alt content and with an id of &quot;adAlt&quot;, whic
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="../classes/AdHelper.html" class="crosslink">AdHelper</a></span>:
+                        <span class="type">HTMLElement</span>:
                     
-                    <p>The AdHelper instance the method is called on (useful for chaining calls.)</p>
+                    <p>The div that was created by showAltHTML and swapped with the canvas.</p>
 
                 
             </div>
@@ -948,7 +826,7 @@ div element containing the alt content and with an id of &quot;adAlt&quot;, whic
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l371"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:371</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l382"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:382</code></a>
         
         </p>
 
@@ -1082,7 +960,29 @@ div element containing the alt content and with an id of &quot;adAlt&quot;, whic
     <h3 class="name"><code>showAlt</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>canvas</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>element</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">HTMLElement</span>
+        </span>
     
 
     
@@ -1092,7 +992,7 @@ div element containing the alt content and with an id of &quot;adAlt&quot;, whic
     
 
     
-
+        <span class="flag static">static</span>
     
 
     
@@ -1110,7 +1010,7 @@ div element containing the alt content and with an id of &quot;adAlt&quot;, whic
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l251"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:251</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l220"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:220</code></a>
         
         </p>
 
@@ -1121,12 +1021,202 @@ div element containing the alt content and with an id of &quot;adAlt&quot;, whic
     </div>
 
     <div class="description">
-        <p>Shows the alternate content that was specified with <code>setAlt</code>, <code>setAltHTML</code>, or <code>setAltImage</code>.</p>
+        <p>Swaps the specified canvas with an HTML element as alternative content. The element will have its CSS <code>display</code>
+value set to <code>block</code>. This allows you to set the element&#39;s CSS <code>display</code> value to <code>none</code> by default to
+prevent it from displaying when the page loads.</p>
+<p>Note that any images or scripts you have in your element will be loaded and run as usual, so using showAltHTML
+may be preferable in some situations.</p>
 
     </div>
 
     
+        <div class="params">
+            <h4>Parameters:</h4>
 
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">canvas</code>
+                        <span class="type">String | HTMLCanvasElement</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The canvas element to replace, or its id.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">element</code>
+                        <span class="type">HTMLElement</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The HTML element to display.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">HTMLElement</span>:
+                    
+                    <p>The element that was passed in.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_showAltHTML" class="method item">
+    <h3 class="name"><code>showAltHTML</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>canvas</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>html</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">HTMLElement</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l204"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:204</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Replaces the specified canvas with a new div containing the specified HTML content. The created div is assigned
+an id of &quot;adAlt&quot; for referencing in code or styling with CSS.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">canvas</code>
+                        <span class="type">String | HTMLCanvasElement</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The canvas element to replace, or its id.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">html</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The HTML content to display.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">HTMLElement</span>:
+                    
+                    <p>The div that was created and swapped with the canvas.</p>
+
+                
+            </div>
+        </div>
     
 
     
@@ -1175,7 +1265,7 @@ div element containing the alt content and with an id of &quot;adAlt&quot;, whic
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l400"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:400</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l411"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:411</code></a>
         
         </p>
 
@@ -1272,7 +1362,7 @@ and pauses GreenSock TweenLite/TweenMax tweens.</p>
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l269"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:269</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l260"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:260</code></a>
         
         </p>
 
@@ -1381,7 +1471,7 @@ their <code>framerate</code> property value. See <code>MovieClip.framerate</code
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l414"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:414</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l426"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:426</code></a>
         
         </p>
 
@@ -1438,12 +1528,6 @@ their <code>framerate</code> property value. See <code>MovieClip.framerate</code
             
                 <li class="arg">
                     
-                        <code class="optional">[showAlt]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
                         <code class="optional">[minFPS]</code>
                     
                 </li>
@@ -1489,7 +1573,7 @@ their <code>framerate</code> property value. See <code>MovieClip.framerate</code
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l308"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:308</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l299"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:299</code></a>
         
         </p>
 
@@ -1501,8 +1585,26 @@ their <code>framerate</code> property value. See <code>MovieClip.framerate</code
 
     <div class="description">
         <p>Watches the real framerate for the ad, and applies a simple heuristic to determine when the ad has been
-running too slowly for too long. When this happens a <code>slow</code> event is dispatched, and if <code>useAlt</code> is true, then
-<code>showAlt()</code> is called.</p>
+running too slowly for too long. When this happens a <code>slow</code> event is dispatched, which you can use to modify
+your content, for example by displaying alternative content:</p>
+<pre class="code prettyprint"><code>myAdHelper.watchFPS().on(&quot;slow&quot;, function(evt) {
+    createjs.AdHelper.showAltImage(myStage.canvas, &quot;myImage.jpg&quot;, &quot;myURL&quot;);
+});</code></pre>
+<p>By default, when the slow event fires, AdHelper will call <code>sleep()</code> and set <code>sleepEnabled=true</code>. You can prevent
+this behaviour by calling <code>preventDefault()</code> on the slow event object. You can also restart the framerate watcher
+after making adjustments:</p>
+<pre class="code prettyprint"><code>myAdHelper.on(&quot;slow&quot;, function(evt) {
+    if (particleCount &gt; 0) {
+        // if we can speed things up by removing particles, try that first.
+        evt.preventDefault(); // the ad will not be put to sleep.
+        particleCount -= 100; // or whatever will make it run faster.
+        this.watchFPS(); // restart the framerate watcher
+    } else {
+        // no more particles to remove, so let the default sleep happen
+        // and swap in some alt content:
+        createjs.AdHelper.showAltImage(myStage.canvas, &quot;myImage.jpg&quot;, &quot;myURL&quot;);
+    }
+});</code></pre>
 
     </div>
 
@@ -1511,23 +1613,6 @@ running too slowly for too long. When this happens a <code>slow</code> event is 
             <h4>Parameters:</h4>
 
             <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[showAlt]</code>
-                        <span class="type">Boolean</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>If true, then when the ad is detected to be slow, <code>showAlt</code> is called.</p>
-
-                    </div>
-
-                    
-                </li>
             
                 <li class="param">
                     
@@ -1556,7 +1641,7 @@ running too slowly for too long. When this happens a <code>slow</code> event is 
                     
 
                     <div class="param-description">
-                        <p>The tolerance of the system. A higher value (ex. 2) allows more slow frames before acting than a lower number (ex. 0.5). Default is 1.</p>
+                        <p>The tolerance of the system. A higher value (ex. 2) allows more slow frames before acting than a lower number (ex. 0.5).</p>
 
                     </div>
 
@@ -1618,7 +1703,7 @@ running too slowly for too long. When this happens a <code>slow</code> event is 
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l90"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:90</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l91"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:91</code></a>
         
         </p>
 
@@ -1663,7 +1748,7 @@ running too slowly for too long. When this happens a <code>slow</code> event is 
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l106"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:106</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l107"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:107</code></a>
         
         </p>
 
@@ -1708,7 +1793,7 @@ running too slowly for too long. When this happens a <code>slow</code> event is 
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l114"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:114</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l115"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:115</code></a>
         
         </p>
 
@@ -1763,7 +1848,7 @@ if (myAdHelper.pixelRatio &gt; 1.5) {
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l98"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:98</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l99"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:99</code></a>
         
         </p>
 
@@ -1810,7 +1895,7 @@ if (myAdHelper.pixelRatio &gt; 1.5) {
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l71"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:71</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l72"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:72</code></a>
         
         </p>
 
@@ -1850,50 +1935,6 @@ myAdHelper.setSleep(15, 3, 0, listener);</code></pre>
                 <h2 class="off-left">Events</h2>
 
                 
-                    <div id="event_alt" class="events item">
-    <h3 class="name"><code>alt</code></h3>
-    <span class="type"></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l181"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:181</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Dispatched when the alt content is shown. Useful for loading images, triggering animations, etc. in the alt content.</p>
-
-    </div>
-
-    
-
-
-    
-</div>
-
-                
                     <div id="event_sleep" class="events item">
     <h3 class="name"><code>sleep</code></h3>
     <span class="type"></span>
@@ -1917,7 +1958,7 @@ myAdHelper.setSleep(15, 3, 0, listener);</code></pre>
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l170"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:170</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l248"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:248</code></a>
         
         </p>
 
@@ -1962,7 +2003,7 @@ the browser tab being hidden.</p>
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l176"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:176</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l254"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:254</code></a>
         
         </p>
 
@@ -2006,7 +2047,7 @@ the browser tab being hidden.</p>
             
         
         
-        <a href="../files/_Users_grant_Documents_JS_CreateJS_sandbox_AdHelper_AdHelper.js.html#l164"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_sandbox&#x2F;AdHelper&#x2F;AdHelper.js:164</code></a>
+        <a href="../files/_Users_grant_Documents_JS_CreateJS_html5ads_AdHelper_AdHelper.js.html#l242"><code>&#x2F;Users&#x2F;grant&#x2F;Documents&#x2F;JS&#x2F;CreateJS_html5ads&#x2F;AdHelper&#x2F;AdHelper.js:242</code></a>
         
         </p>
 
